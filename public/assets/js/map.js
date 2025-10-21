@@ -73,16 +73,6 @@ function parseLatLon(cod) {
 
 	return [lat, lon, depth];
 }
-// function parseLatLon(cod) {
-// 	if (!cod) return null;
-// 	const match = cod.match(/\+([\d.]+)\+([\d.]+)|\+([\d.]+)\-([\d.]+)/);
-// 	if (!match) return null;
-
-// 	const lat = parseFloat(match[1] || match[3]);
-// 	const lon = parseFloat(match[2] || `-${match[4]}`);
-	
-// 	return [lat, lon];
-// }
 
 function getMarkerIcon(maxi, color=getIntensityColor(maxi), size=25) {
     const height = size * 1.64;
@@ -139,6 +129,11 @@ async function fetchQuakes() {
 			}
 
 			const coords = parseLatLon(item.cod);
+
+			if (!coords || coords[0] === null || coords[1] === null) {
+				return;
+			}
+			
 			if (coords) {
 				let [lat, lon, depth] = coords;
 
@@ -193,6 +188,10 @@ async function fetchQuakes() {
 
 			card.addEventListener("click", () => {
 				const coords = parseLatLon(item.cod);
+				if (!coords || coords[0] === null || coords[1] === null) {
+					return;
+				}
+
 				if (coords) {
 					let [lat, lon, depth] = coords;
 
@@ -226,12 +225,13 @@ async function fetchQuakes() {
 			listElement.appendChild(card);
 		});
 	} catch (error) {
-		if (lang === "ja") {
-			listElement.innerHTML = `<li>データを取得できませんでした。</li>`;
-		} else {
-			listElement.innerHTML = `<li>Failed to fetch data.</li>`;
-		}
+		// if (lang === "ja") {
+		// 	listElement.innerHTML = `<li>データを取得できませんでした。</li>`;
+		// } else {
+		// 	listElement.innerHTML = `<li>Failed to fetch data.</li>`;
+		// }
 		console.error("Fetch error:", error);
+		listElement.innerHTML = `<li>Failed to fetch data.</li>`;
 	}
 }
 
