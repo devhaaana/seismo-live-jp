@@ -254,7 +254,8 @@ h1 {
 }
 
 .quake-card {
-	width: 28rem;
+	/* width: 20rem; */
+	width: 80%;
 	padding: 1rem;
 	margin-bottom: 1rem;
 
@@ -293,4 +294,10 @@ footer #contact a,
 footer #data-source a {
 	text-decoration: none;
 	color: inherit;
+}
+
+@media (max-width: 1024px) {
+	:root {
+		--base-padding: 4rem;
+	}
 }
