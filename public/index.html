@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>SeismoLiveJP | 日本語</title>
+	<link rel="stylesheet" href="/assets/css/style.css">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+	<div class="navigation-container">
+		<nav class="navigation">
+			<div class="navigation-logo">
+				<img src="/assets/image/banner/seismolivejp-banner.svg" alt="SeismoLiveJP">
+			</div>
+			<div class="navigation-menu">
+				<a href="/assets/image/JMA-seismic-intensity-scale-ja.png"  target="_blank" id="back-link">震度について</a>
+				<a href="#quake-list" id="reload">更新</a>
+
+				<div class="language-selector">
+					<button type="button" class="dropdown-toggle">Language</button>
+					<div class="dropdown-toggle-content">
+						<a href="#" data-lang="en">English 🇺🇸</a>
+						<a href="#" data-lang="ja">日本語 🇯🇵</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</div>
+
+	<main>
+		<section id="content" class="quake-container">
+			<div id="map-top" class="quake-map-top"></div>
+
+			<div class="quake-content-wrapper">
+				<div id="map" class="quake-map"></div>
+				<div id="quake-list" class="quake-section"></div>
+			</div>
+		</section>
+	</main>
+
+	<footer id="footer">
+		<p id="name">Seismo Live JP</p>
+		<p id="contact">Github: <a href="https://github.com/devhaaana" target="_blank">devhaaana</a></p>
+		<p id="copyright">&copy; 2025 Hana Go. All rights reserved.</p>
+		<p id="data-source">データ提供: <a href="https://www.jma.go.jp/" target="_blank">気象庁, JMA</a></p>
+	</footer>
+	
+	<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+	<script src="/assets/js/script.js"></script>
+	<script src="/assets/js/map.js"></script>
+</body>
+</html>
