@@ -1,10 +1,16 @@
-function changeLanguage(lang) {
-		const isLocal = window.location.protocol === 'file:';
-		if (lang === 'ja') {
-				window.location.href = isLocal ? 'index.html' : '/index.html';
-		} else {
-				window.location.href = isLocal ? `${lang}/index.html` : `/${lang}/`;
-		}
+function changeLanguage(rawLang) {
+    const isLocal = window.location.protocol === 'file:';
+    const langMap = {
+        ja: isLocal ? 'index.html' : '/index.html',
+        en: isLocal ? 'en/index.html' : '/en/',
+        jp: isLocal ? 'jp/index.html' : '/jp/'
+    };
+
+	const lang = String(rawLang || 'ja').trim().toLowerCase();
+    const has = Object.prototype.hasOwnProperty.call(langMap, lang);
+    const target = has ? langMap[lang] : langMap['ja'];
+
+    window.location.href = target;
 }
 
 document.addEventListener('DOMContentLoaded', function() {

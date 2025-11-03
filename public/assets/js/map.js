@@ -58,7 +58,7 @@ function formatDate(dateStr, format) {
 // cod 예시: "+29.4+129.3-10000/"
 function parseLatLon(cod) {
 	if (!cod) return [null, null, null];
-	const match = cod.match(/([+\-]\d{2}\.\d+)([+\-]\d{3}\.\d+)([+\-]?\d+)?\//);
+	const match = cod.match(/([+\-]\d{2}\.\d{1,10})([+\-]\d{3}\.\d{1,10})([+\-]?\d{1,10})?\//);
 	if (!match) return [null, null, null];
 
 	const safeFloat = (value) => {
@@ -102,6 +102,41 @@ function getMarkerIcon(maxi, color=getIntensityColor(maxi), size=25) {
         iconAnchor: [cx, cy],
         popupAnchor: [0, -cy]
     });
+}
+
+function createQuakeCard(item, time, lang) {
+    const card = document.createElement("div");
+    card.className = "quake-card";
+    card.style.backgroundColor = getIntensityColor(item.maxi);
+    card.style.color = getTextColor(item.maxi);
+
+    const titleLink = document.createElement("a");
+    titleLink.className = "item-title";
+    titleLink.target = "_blank";
+    titleLink.href = lang === "ja"
+        ? `https://www.data.jma.go.jp/multi/quake/quake_detail.html?eventID=${item.ctt}&lang=jp`
+        : `https://www.data.jma.go.jp/multi/quake/quake_detail.html?eventID=${item.ctt}&lang=en`;
+    const strong = document.createElement("strong");
+    strong.textContent = lang === "ja" ? item.ttl : item.en_ttl;
+    titleLink.appendChild(strong);
+    card.appendChild(titleLink);
+    card.appendChild(document.createElement("br"));
+
+    const infos = [
+        lang === "ja" ? `発生時刻: ${time}` : `Time: ${time}`,
+        lang === "ja" ? `震源: ${item.anm}` : `Epicenter: ${item.en_anm}`,
+        lang === "ja" ? `マグニチュード: M${item.mag}` : `Magnitude: M${item.mag}`,
+        lang === "ja" ? `最大震度: ${item.maxi}` : `Max Intensity: ${item.maxi}`
+    ];
+
+    infos.forEach(text => {
+        const small = document.createElement("small");
+        small.textContent = text;
+        card.appendChild(small);
+        card.appendChild(document.createElement("br"));
+    });
+
+    return card;
 }
 
 
@@ -155,36 +190,7 @@ async function fetchQuakes() {
 				mapTopMarkers.push(topMarker);
 			}
 
-			const card = document.createElement("div");
-			card.className = "quake-card";
-			card.style.backgroundColor = getIntensityColor(item.maxi);
-			card.style.color = getTextColor(item.maxi);
-
-			let innerHTML;
-			if (lang === "ja") {
-				innerHTML = `
-					<a href="https://www.data.jma.go.jp/multi/quake/quake_detail.html?eventID=${item.ctt}&lang=jp" target="_blank" class="item-title">
-						<strong>${item.ttl}</strong>
-						<br>
-					</a>
-					<small>発生時刻: ${time}</small><br>
-					<small>震源: ${item.anm}</small><br>
-					<small>マグニチュード: M${item.mag}</small><br>
-					<small>最大震度: ${item.maxi}</small>
-				`;
-			} else {
-				innerHTML = `
-					<a href="https://www.data.jma.go.jp/multi/quake/quake_detail.html?eventID=${item.ctt}&lang=en" target="_blank" class="item-title">
-						<strong>${item.en_ttl}</strong>
-						<br>
-					</a>
-					<small>Time: ${time}</small><br>
-					<small>Epicenter: ${item.en_anm}</small><br>
-					<small>Magnitude: M${item.mag}</small><br>
-					<small>Max Intensity: ${item.maxi}</small>
-				`;
-			}
-			card.innerHTML = innerHTML;
+			const card = createQuakeCard(item, time, lang);
 
 			card.addEventListener("click", () => {
 				const coords = parseLatLon(item.cod);
