@@ -60,8 +60,8 @@
 
 | ファイル                                                                                                | 説明                                                          |
 | :------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------ |
-| [seismo-live-jp-2.0.0.zip](https://github.com/devhaaana/seismo-live-jp/archive/refs/tags/v2.0.0.zip)       | seismo-live-jp v2.0.0 のソースコードを含む*ZIP* ファイル    |
-| [seismo-live-jp-2.0.0.tar.gz](https://github.com/devhaaana/seismo-live-jp/archive/refs/tags/v2.0.0.tar.gz) | seismo-live-jp v2.0.0 のソースコードを含む*TAR.GZ* ファイル |
+| [seismo-live-jp-2.0.1.zip](https://github.com/devhaaana/seismo-live-jp/archive/refs/tags/v2.0.1.zip)       | seismo-live-jp v2.0.1 のソースコードを含む*ZIP* ファイル    |
+| [seismo-live-jp-2.0.1.tar.gz](https://github.com/devhaaana/seismo-live-jp/archive/refs/tags/v2.0.1.tar.gz) | seismo-live-jp v2.0.1 のソースコードを含む*TAR.GZ* ファイル |
 
 ## 参考
 

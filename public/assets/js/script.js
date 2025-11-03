@@ -1,16 +1,13 @@
 function changeLanguage(rawLang) {
-    const isLocal = window.location.protocol === 'file:';
+	const isLocal = window.location.protocol === 'file:';
     const langMap = {
         ja: isLocal ? 'index.html' : '/index.html',
         en: isLocal ? 'en/index.html' : '/en/',
-        jp: isLocal ? 'jp/index.html' : '/jp/'
     };
+    const lang = String(rawLang || 'ja').trim().toLowerCase();
+	const targetPath = (langMap.hasOwnProperty ? langMap.hasOwnProperty(lang) : (lang in langMap)) ? langMap[lang] : langMap['ja'];
 
-	const lang = String(rawLang || 'ja').trim().toLowerCase();
-    const has = Object.prototype.hasOwnProperty.call(langMap, lang);
-    const target = has ? langMap[lang] : langMap['ja'];
-
-    window.location.href = target;
+	window.location.href = encodeURI(targetPath);
 }
 
 document.addEventListener('DOMContentLoaded', function() {

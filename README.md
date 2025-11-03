@@ -60,8 +60,8 @@ Visit the following link to use SeismoLiveJP in your browser:
 
 | File                                                                                    | Description                                                        |
 | :-------------------------------------------------------------------------------------- | :----------------------------------------------------------------- |
-| [seismo-live-jp-2.0.0.zip](https://github.com/devhaaana/seismo-live-jp/archive/refs/tags/v2.0.0.zip)       | A*ZIP* file containing the full source code of seismo-live-jp v2.0.0.    |
-| [seismo-live-jp-2.0.0.tar.gz](https://github.com/devhaaana/seismo-live-jp/archive/refs/tags/v2.0.0.tar.gz) | A*TAR.GZ* file containing the full source code of seismo-live-jp v2.0.0. |
+| [seismo-live-jp-2.0.1.zip](https://github.com/devhaaana/seismo-live-jp/archive/refs/tags/v2.0.1.zip)       | A*ZIP* file containing the full source code of seismo-live-jp v2.0.1.    |
+| [seismo-live-jp-2.0.1.tar.gz](https://github.com/devhaaana/seismo-live-jp/archive/refs/tags/v2.0.1.tar.gz) | A*TAR.GZ* file containing the full source code of seismo-live-jp v2.0.1. |
 
 ## Reference
 
