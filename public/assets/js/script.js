@@ -5,7 +5,9 @@ function changeLanguage(rawLang) {
         en: isLocal ? 'en/index.html' : '/en/',
     };
     const lang = String(rawLang || 'ja').trim().toLowerCase();
-	const targetPath = (langMap.hasOwnProperty ? langMap.hasOwnProperty(lang) : (lang in langMap)) ? langMap[lang] : langMap['ja'];
+	const targetPath = Object.prototype.hasOwnProperty.call(langMap, lang)
+						? langMap[lang]
+						: langMap['ja'];
 
 	window.location.href = encodeURI(targetPath);
 }
