@@ -2,7 +2,7 @@
 
   [![seismo-live-jp](/images/banner.svg)](#)
 
-  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE "License")
+  [![License: All Rights Reserved](https://img.shields.io/badge/License-All%20Rights%20Reserved-black.svg?style=for-the-badge)](LICENSE)
   [![Release version](https://img.shields.io/github/release/devhaaana/seismo-live-jp.svg?label=Download&style=for-the-badge)](#release-files "Release Files")
   [![Commits](https://img.shields.io/github/commit-activity/y/devhaaana/seismo-live-jp.svg?label=commits&style=for-the-badge)](https://github.com/devhaaana/seismo-live-jp/commits "Commit History")
   [![Last Commit](https://img.shields.io/github/last-commit/devhaaana/seismo-live-jp.svg?label=&style=for-the-badge&display_timestamp=committer)](https://github.com/devhaaana/seismo-live-jp/pulse/monthly "Last Commit")
