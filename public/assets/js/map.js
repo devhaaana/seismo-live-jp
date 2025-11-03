@@ -104,6 +104,33 @@ function getMarkerIcon(maxi, color=getIntensityColor(maxi), size=25) {
     });
 }
 
+function addMarker(mapInstance, lang, lat, lon, item, time, depth, color, iconSize = 15, openPopup = false) {
+    const marker = L.marker([lat, lon], { icon: getMarkerIcon(item.maxi, color, iconSize) })
+        .addTo(mapInstance)
+        .bindPopup(createPopupContent(lang, item, time, depth));
+	
+	if (openPopup) {
+		marker.openPopup();
+	}
+	
+    return marker;
+}
+
+function createPopupContent(lang, item, time, depth) {
+    if (lang === "ja") {
+        return `<b>${item.anm}</b><br>${time}<br>M${item.mag}<br>最大震度 ${item.maxi}<br>震源の深さ ${formatDepth(depth, lang)}`;
+    } else {
+        return `<b>${item.en_anm}</b><br>${time}<br>M${item.mag}<br>Max Intensity ${item.maxi}<br>Depth ${formatDepth(depth, lang)}`;
+    }
+}
+
+function formatDepth(depth, lang) {
+    if (depth === "0km") {
+        return lang === "ja" ? "ごく浅い" : "Very shallow";
+    }
+    return depth;
+}
+
 function createQuakeCard(item, time, lang) {
     const card = document.createElement("div");
     card.className = "quake-card";
@@ -172,21 +199,7 @@ async function fetchQuakes() {
 			if (coords) {
 				let [lat, lon, depth] = coords;
 
-				if (depth == "0km") {
-					if (lang === "ja") depth = "ごく浅い";
-					else depth = "Very shallow";
-				}
-
-				if (lang === "ja") {
-					time = formatDate(item.at, "jp");
-					topMarker = L.marker([lat, lon], { icon: getMarkerIcon(item.maxi, "#FF4D4A", 15) })
-						.addTo(mapTop)
-						.bindPopup(`<b>${item.anm}</b><br>${time}<br>M${item.mag}<br>最大震度 ${item.maxi}<br>震源の深さ ${depth}`);
-				} else {
-					topMarker = L.marker([lat, lon], { icon: getMarkerIcon(item.maxi, "#FF4D4A", 15) })
-						.addTo(mapTop)
-						.bindPopup(`<b>${item.en_anm}</b><br>${time}<br>M${item.mag}<br>Max Intensity ${item.maxi}<br>Depth ${depth}`);
-				}
+				topMarker = addMarker(mapTop, lang, lat, lon, item, time, depth, color = '#FF4D4A', iconSize = 15, openPopup = false);
 				mapTopMarkers.push(topMarker);
 			}
 
@@ -201,23 +214,8 @@ async function fetchQuakes() {
 				if (coords) {
 					let [lat, lon, depth] = coords;
 
-					if (depth == "0km") {
-						if (lang === "ja") depth = "ごく浅い";
-						else depth = "Very shallow";
-					}
-
 					if (mapMarker) map.removeLayer(mapMarker);
-					if (lang === "ja") {
-						mapMarker = L.marker([lat, lon], { icon: getMarkerIcon(item.maxi, getIntensityColor(item.maxi), 15) })
-							.addTo(map)
-							.bindPopup(`<b>${item.anm}</b><br>${time}<br>M${item.mag}<br>最大震度 ${item.maxi}<br>震源の深さ ${depth}`)
-							.openPopup();
-					} else {
-						mapMarker = L.marker([lat, lon], { icon: getMarkerIcon(item.maxi, getIntensityColor(item.maxi), 15) })
-							.addTo(map)
-							.bindPopup(`<b>${item.en_anm}</b><br>${time}<br>M${item.mag}<br>Max Intensity ${item.maxi}<br>Depth ${depth}`)
-							.openPopup();
-					}
+					mapMarker = addMarker(map, lang, lat, lon, item, time, depth, color = getIntensityColor(item.maxi), iconSize = 15, openPopup = true);
 					map.setView([lat, lon], 8);
 				} else {
 					if (lang === "ja") {
@@ -230,12 +228,8 @@ async function fetchQuakes() {
 
 			listElement.appendChild(card);
 		});
+
 	} catch (error) {
-		// if (lang === "ja") {
-		// 	listElement.innerHTML = `<li>データを取得できませんでした。</li>`;
-		// } else {
-		// 	listElement.innerHTML = `<li>Failed to fetch data.</li>`;
-		// }
 		console.error("Fetch error:", error);
 		listElement.innerHTML = `<li>Failed to fetch data.</li>`;
 	}
